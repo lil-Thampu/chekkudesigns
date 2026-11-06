@@ -34,6 +34,36 @@ const collections = [
     count: 9,
     label: "Event design project"
   },
+    {
+  gridId: "caratlane-grid",
+  folder: "portfolio-media/store-design/caratlane",
+  count: 6,
+  label: "Caratlane store design"
+},
+{
+  gridId: "fastrack-grid",
+  folder: "portfolio-media/store-design/fastrack",
+  count: 3,
+  label: "Fastrack store design"
+},
+{
+  gridId: "runway-grid",
+  folder: "portfolio-media/store-design/runway",
+  count: 4,
+  label: "Runway store design"
+},
+{
+  gridId: "titan-grid",
+  folder: "portfolio-media/store-design/titan-eye-plus-4",
+  count: 4,
+  label: "Titan Eye+4 store design"
+},
+  {
+    gridId: "packaging-grid",
+    folder: "portfolio-media/packaging",
+    count: 3,
+    label: "Packaging design project"
+  },
   {
     gridId: "social-grid",
     folder: "portfolio-media/social-media",

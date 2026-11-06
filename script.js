@@ -155,3 +155,45 @@ document.querySelectorAll(
     setTimeout(openNextPage, 900);
   });
 });
+// Highlight only the gallery item currently under the mouse
+let mouseX = -1;
+let mouseY = -1;
+let activeGalleryItem = null;
+
+function updateGalleryHover() {
+  const element = mouseX >= 0 && mouseY >= 0
+    ? document.elementFromPoint(mouseX, mouseY)
+    : null;
+
+  const nextItem = element?.closest(".gallery-item") || null;
+
+  if (nextItem === activeGalleryItem) return;
+
+  if (activeGalleryItem) {
+    activeGalleryItem.classList.remove("scroll-hover");
+  }
+
+  activeGalleryItem = nextItem;
+
+  if (activeGalleryItem) {
+    activeGalleryItem.classList.add("scroll-hover");
+  }
+}
+
+document.addEventListener("pointermove", (event) => {
+  if (event.pointerType !== "mouse") return;
+
+  mouseX = event.clientX;
+  mouseY = event.clientY;
+  updateGalleryHover();
+});
+
+window.addEventListener("scroll", updateGalleryHover, { passive: true });
+
+document.addEventListener("pointerout", (event) => {
+  if (!event.relatedTarget) {
+    mouseX = -1;
+    mouseY = -1;
+    updateGalleryHover();
+  }
+});

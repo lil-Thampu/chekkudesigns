@@ -1425,3 +1425,84 @@ html.page-reveal::after {
     transform: none;
   }
 }
+
+/* Apply the same effect when scrolling under the mouse */
+.gallery-item.scroll-hover {
+  z-index: 2;
+}
+
+.gallery-item.scroll-hover::before {
+  transform: translate(10px, 10px);
+}
+
+.gallery-item.scroll-hover img,
+.gallery-item.scroll-hover video {
+  transform: translate(-6px, -6px);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item.scroll-hover img,
+  .gallery-item.scroll-hover video {
+    transform: none;
+  }
+}
+
+/* Store Design project subdivisions */
+.store-project {
+  margin-top: 65px;
+}
+
+.store-project h3 {
+  margin: 0 0 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid var(--line);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  font-weight: 500;
+  letter-spacing: -0.04em;
+}
+
+/* Turn off the old hover and focus animations */
+.gallery-item:hover::before,
+.gallery-item:focus-within::before {
+  transform: none;
+}
+
+.gallery-item:hover img,
+.gallery-item:hover video,
+.gallery-item:focus-within video {
+  transform: none;
+}
+
+.gallery-item:hover,
+.gallery-item:focus-within {
+  z-index: auto;
+}
+
+/* Highlight only the item under the mouse */
+.gallery-item.scroll-hover {
+  z-index: 2;
+}
+
+.gallery-item.scroll-hover::before {
+  transform: translate(10px, 10px);
+}
+
+.gallery-item.scroll-hover img,
+.gallery-item.scroll-hover video {
+  transform: translate(-6px, -6px);
+}
+
+/* Keep keyboard focus visible on video controls */
+.gallery-item video:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item.scroll-hover::before,
+  .gallery-item.scroll-hover img,
+  .gallery-item.scroll-hover video {
+    transform: none;
+  }
+}
