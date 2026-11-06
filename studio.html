@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Get to know Chekku Designs and what we do." />
+  <title>Studio — Chekku Designs</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+
+  <script>
+  // Prepare the reveal before the new page is displayed.
+  try {
+    const transition = sessionStorage.getItem("pageTransition");
+
+    if (transition) {
+      const point = JSON.parse(transition);
+
+      document.documentElement.style.setProperty("--transition-x", point.x + "%");
+      document.documentElement.style.setProperty("--transition-y", point.y + "%");
+      document.documentElement.classList.add("page-reveal");
+
+      sessionStorage.removeItem("pageTransition");
+    }
+  } catch (error) {
+    // The website will still work if browser storage is unavailable.
+  }
+</script>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="index.html" aria-label="Chekku Designs home">
+        Chekku Designs
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
+        Menu +
+      </button>
+
+      <nav class="nav" id="main-navigation" aria-label="Main navigation">
+        <a href="work.html">Work</a>
+        <a href="studio.html" aria-current="page">Studio</a>
+        <a href="process.html">Process</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <a class="header-cta" href="contact.html">
+        Let's discuss <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="studio" id="studio" aria-labelledby="studio-title">
+      <div class="wrap">
+        <div class="studio-top">
+          <p class="eyebrow">A little about us</p>
+
+          <h1 id="studio-title">
+            We believe design should do more than look good.
+            It should <span>mean something.</span>
+          </h1>
+        </div>
+
+        <div class="studio-bottom">
+          <h2>What we do</h2>
+
+          <p>
+            We partner with people and businesses to turn ambitious ideas
+            into clear, compelling visual stories. From first thought to
+            final detail, we make every touchpoint count.
+          </p>
+
+          <ul class="services">
+            <li>Brand strategy</li>
+            <li>Visual identity</li>
+            <li>Art direction</li>
+            <li>Digital experiences</li>
+            <li>Campaigns & content</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

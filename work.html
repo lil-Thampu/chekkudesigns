@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Explore selected work by Chekku Designs." />
+  <title>Work — Chekku Designs</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+
+  <script>
+  // Prepare the reveal before the new page is displayed.
+  try {
+    const transition = sessionStorage.getItem("pageTransition");
+
+    if (transition) {
+      const point = JSON.parse(transition);
+
+      document.documentElement.style.setProperty("--transition-x", point.x + "%");
+      document.documentElement.style.setProperty("--transition-y", point.y + "%");
+      document.documentElement.classList.add("page-reveal");
+
+      sessionStorage.removeItem("pageTransition");
+    }
+  } catch (error) {
+    // The website will still work if browser storage is unavailable.
+  }
+</script>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+  <script src="gallery.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="index.html" aria-label="Chekku Designs home">
+        Chekku Designs
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
+        Menu +
+      </button>
+
+      <nav class="nav" id="main-navigation" aria-label="Main navigation">
+        <a href="work.html" aria-current="page">Work</a>
+        <a href="studio.html">Studio</a>
+        <a href="process.html">Process</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <a class="header-cta" href="contact.html">
+        Let's discuss <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+  <section class="gallery-page wrap">
+
+    <div class="gallery-intro">
+      <p class="eyebrow">Chekku Designs / Selected work</p>
+
+      <h1>
+        Ideas made<br />
+        <em>visible.</em>
+      </h1>
+
+      <p class="gallery-intro-text">
+        Explore our work across AI imagery, creative direction,
+        experiences and digital content.
+      </p>
+    </div>
+
+    <nav class="gallery-nav" aria-label="Work categories">
+      <a href="#ai-cataloguing">AI Cataloguing</a>
+      <a href="#ai-mood-shots">AI Mood Shots</a>
+      <a href="#ai-videos">AI Videos</a>
+      <a href="#art-direction">Art Direction</a>
+      <a href="#event-design">Event Design</a>
+      <a href="#social-media">Social Media Content</a>
+    </nav>
+
+    <section class="gallery-section" id="ai-cataloguing">
+      <div class="gallery-heading">
+        <div>
+          <p class="eyebrow">01 / AI Lab</p>
+          <h2>AI Cataloguing</h2>
+        </div>
+        <p>Product imagery and visual experimentation</p>
+      </div>
+
+      <div class="gallery-grid" id="cataloguing-grid"></div>
+    </section>
+
+    <section class="gallery-section" id="ai-mood-shots">
+      <div class="gallery-heading">
+        <div>
+          <p class="eyebrow">02 / AI Lab</p>
+          <h2>AI Mood Shots</h2>
+        </div>
+        <p>Atmosphere, styling and visual storytelling</p>
+      </div>
+
+      <div class="gallery-grid" id="mood-grid"></div>
+    </section>
+
+    <section class="gallery-section" id="ai-videos">
+      <div class="gallery-heading">
+        <div>
+          <p class="eyebrow">03 / AI Lab</p>
+          <h2>AI Videos</h2>
+        </div>
+        <p>Ideas brought to life through motion</p>
+      </div>
+
+      <div class="gallery-grid gallery-video-grid">
+        <!-- Replace this file with a real MP4 from your collection. -->
+        <figure class="gallery-item">
+          <video controls preload="metadata" playsinline>
+            <source src="portfolio-media/ai-videos/shaya.mp4" type="video/mp4" />
+            Your browser does not support this video.
+          </video>
+          <figcaption>Shaya</figcaption>
+        </figure>
+
+        <!-- To add another video, copy the figure above and change
+             the file name and caption. -->
+      </div>
+    </section>
+
+    <section class="gallery-section" id="art-direction">
+      <div class="gallery-heading">
+        <div>
+          <p class="eyebrow">04 / Creative</p>
+          <h2>Art Direction</h2>
+        </div>
+        <p>Visual concepts and creative direction</p>
+      </div>
+
+      <div class="gallery-grid" id="art-grid"></div>
+    </section>
+
+    <section class="gallery-section" id="event-design">
+      <div class="gallery-heading">
+        <div>
+          <p class="eyebrow">05 / Experiences</p>
+          <h2>Event Design</h2>
+        </div>
+        <p>Spaces and experiences designed to connect</p>
+      </div>
+
+      <div class="gallery-grid" id="event-grid"></div>
+    </section>
+
+    <section class="gallery-section" id="social-media">
+      <div class="gallery-heading">
+        <div>
+          <p class="eyebrow">06 / Digital</p>
+          <h2>Social Media Content</h2>
+        </div>
+        <p>Creative content for digital platforms</p>
+      </div>
+
+      <div class="gallery-grid" id="social-grid"></div>
+    </section>
+
+    <div class="gallery-contact">
+      <p class="eyebrow">Have a project in mind?</p>
+      <h2>Let's make something matter.</h2>
+      <a href="contact.html">Start a conversation ↗</a>
+    </div>
+
+  </section>
+</main>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Discover the creative process at Chekku Designs." />
+  <title>Process — Chekku Designs</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+
+  <script>
+  // Prepare the reveal before the new page is displayed.
+  try {
+    const transition = sessionStorage.getItem("pageTransition");
+
+    if (transition) {
+      const point = JSON.parse(transition);
+
+      document.documentElement.style.setProperty("--transition-x", point.x + "%");
+      document.documentElement.style.setProperty("--transition-y", point.y + "%");
+      document.documentElement.classList.add("page-reveal");
+
+      sessionStorage.removeItem("pageTransition");
+    }
+  } catch (error) {
+    // The website will still work if browser storage is unavailable.
+  }
+</script>
+
+  <link rel="stylesheet" href="style.css" />
+  <script src="script.js" defer></script>
+</head>
+
+<body>
+  <header class="site-header">
+    <div class="header-inner">
+      <a class="logo" href="index.html" aria-label="Chekku Designs home">
+        Chekku Designs
+      </a>
+
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-navigation">
+        Menu +
+      </button>
+
+      <nav class="nav" id="main-navigation" aria-label="Main navigation">
+        <a href="work.html">Work</a>
+        <a href="studio.html">Studio</a>
+        <a href="process.html" aria-current="page">Process</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+
+      <a class="header-cta" href="contact.html">
+        Let's discuss <span aria-hidden="true">→</span>
+      </a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="process wrap" id="process" aria-labelledby="process-title">
+      <div class="section-heading">
+        <h1 id="process-title">Our process</h1>
+        <p>From first conversation to final delivery</p>
+      </div>
+
+      <div class="process-grid">
+        <article>
+          <span>01</span>
+          <h3>Discover</h3>
+          <p>We get to know your business, audience and ambitions.</p>
+        </article>
+
+        <article>
+          <span>02</span>
+          <h3>Define</h3>
+          <p>We turn what we learn into a clear creative direction.</p>
+        </article>
+
+        <article>
+          <span>03</span>
+          <h3>Design</h3>
+          <p>We bring the idea to life across the right touchpoints.</p>
+        </article>
+
+        <article>
+          <span>04</span>
+          <h3>Deliver</h3>
+          <p>We prepare everything you need to launch with confidence.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
