@@ -75,7 +75,7 @@ pageRoot.addEventListener("animationend", (event) => {
 });
 
 document.querySelectorAll(
-  ".nav a, .header-cta, .logo"
+  ".nav a, .header-cta, .logo, .portfolio-card a"
 ).forEach((link) => {
   link.addEventListener("click", (event) => {
     // Keep normal browser behavior for new tabs, keyboard shortcuts,
@@ -197,3 +197,149 @@ document.addEventListener("pointerout", (event) => {
     updateGalleryHover();
   }
 });
+
+// =========================================
+// Home page — scroll-driven video showreel
+// =========================================
+
+const showreel = document.querySelector(".home-showreel");
+
+if (showreel) {
+  const stage = showreel.querySelector(".home-showreel-stage");
+  const frames = [...showreel.querySelectorAll(".home-video-frame")];
+  const videos = [...showreel.querySelectorAll("video")];
+  const scrollHint = showreel.querySelector(".home-scroll-hint");
+
+  let showreelFrameRequested = false;
+  let showreelVisible = true;
+
+  const desktopPositions = [
+    [-0.31, -0.26],
+    [ 0.30, -0.24],
+    [-0.38,  0.10],
+    [ 0.38,  0.10],
+    [ 0.00,  0.34]
+  ];
+
+  const mobilePositions = [
+    [-0.25, -0.27],
+    [ 0.25, -0.22],
+    [-0.28,  0.09],
+    [ 0.28,  0.10],
+    [ 0.00,  0.30]
+  ];
+
+  // Small offsets keep the videos visibly stacked before the final zoom.
+  const stackOffsets = [
+    [-28, -20],
+    [ 24, -14],
+    [-20,  18],
+    [ 16,  12],
+    [  0,   0]
+  ];
+
+  function clamp(value, min, max) {
+    return Math.min(max, Math.max(min, value));
+  }
+
+  function ease(value) {
+    return value * value * (3 - 2 * value);
+  }
+
+  function drawShowreel() {
+    showreelFrameRequested = false;
+
+    if (reducedMotion.matches) {
+      frames.forEach((frame) => {
+        frame.style.removeProperty("--x");
+        frame.style.removeProperty("--y");
+        frame.style.removeProperty("--scale");
+      });
+      return;
+    }
+
+    const rect = showreel.getBoundingClientRect();
+    const width = stage.clientWidth;
+    const height = stage.clientHeight;
+    const scrollDistance = showreel.offsetHeight - height;
+
+    if (scrollDistance <= 0) return;
+
+    const progress = clamp(-rect.top / scrollDistance, 0, 1);
+
+    // First phase: scattered frames move into a central stack.
+    const gather = ease(clamp(progress / 0.6, 0, 1));
+
+    // Second phase: the front video expands to fill the viewport.
+    const expand = ease(clamp((progress - 0.6) / 0.4, 0, 1));
+
+    const positions = window.innerWidth <= 850
+      ? mobilePositions
+      : desktopPositions;
+
+    const frontFrame = frames[4];
+    const frontWidth = frontFrame.offsetWidth;
+    const frontHeight = frontFrame.offsetHeight;
+
+    // Cover the viewport even when its proportions differ from the video.
+    const fullScreenScale = Math.max(
+      width / frontWidth,
+      height / frontHeight
+    );
+
+    frames.forEach((frame, index) => {
+      const [startX, startY] = positions[index];
+      const [stackX, stackY] = stackOffsets[index];
+
+      const x = startX * width * (1 - gather) + stackX * gather;
+      const y = startY * height * (1 - gather) + stackY * gather;
+
+      const scale = index === 4
+        ? 1 + (fullScreenScale - 1) * expand
+        : 1;
+
+      frame.style.setProperty("--x", `${x}px`);
+      frame.style.setProperty("--y", `${y}px`);
+      frame.style.setProperty("--scale", scale);
+    });
+
+    if (scrollHint) {
+      scrollHint.style.opacity = String(1 - clamp(progress * 5, 0, 1));
+    }
+  }
+
+  function requestShowreelUpdate() {
+    if (showreelFrameRequested) return;
+
+    showreelFrameRequested = true;
+    requestAnimationFrame(drawShowreel);
+  }
+
+  function updateVideoPlayback() {
+    videos.forEach((video) => {
+      if (reducedMotion.matches || !showreelVisible) {
+        video.pause();
+      } else {
+        // Autoplay can be blocked by browser or device settings.
+        video.play().catch(() => {});
+      }
+    });
+
+    requestShowreelUpdate();
+  }
+
+  window.addEventListener("scroll", requestShowreelUpdate, { passive: true });
+  window.addEventListener("resize", requestShowreelUpdate);
+
+  if ("IntersectionObserver" in window) {
+    const visibilityObserver = new IntersectionObserver((entries) => {
+      showreelVisible = entries[0].isIntersecting;
+      updateVideoPlayback();
+    });
+
+    visibilityObserver.observe(showreel);
+  }
+
+  reducedMotion.addEventListener("change", updateVideoPlayback);
+  updateVideoPlayback();
+}

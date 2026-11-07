@@ -1506,3 +1506,416 @@ html.page-reveal::after {
     transform: none;
   }
 }
+
+/* Caption overlay on gallery items, revealed on hover/focus */
+.gallery-item {
+  position: relative;
+}
+
+.gallery-item .overlay-caption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 2;
+  padding: 16px;
+  background: linear-gradient(to top, rgba(23, 23, 21, 0.75), transparent);
+  color: var(--paper);
+  font-size: 0.85rem;
+  font-weight: 600;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.25s ease, transform 0.25s ease;
+  pointer-events: none;
+}
+
+.gallery-item:hover .overlay-caption,
+.gallery-item:focus-within .overlay-caption,
+.gallery-item.scroll-hover .overlay-caption {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item .overlay-caption {
+    transition: none;
+  }
+}
+
+/* Scroll-reveal animation for gallery photos */
+.gallery-item {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.gallery-item.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-item {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Floating image preview for work category headings */
+.category-preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9998;
+  width: min(38vw, 520px);
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  background: #333;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.2s ease, visibility 0.2s ease;
+}
+
+.category-preview.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.category-preview img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-preview {
+    transition: none;
+  }
+}
+
+/* =========================================
+   WORK CATEGORY LIST AND GALLERY VIEW
+========================================= */
+
+/* Ensure hidden sections stay hidden despite existing display rules. */
+.gallery-page [hidden] {
+  display: none !important;
+}
+
+.category-title-link {
+  display: inline-block;
+}
+
+.category-title-link:hover,
+.category-title-link:focus-visible {
+  color: var(--muted);
+}
+
+.category-title-link:focus-visible,
+.gallery-back:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 6px;
+}
+
+.gallery-back {
+  display: inline-block;
+  margin-bottom: 35px;
+  padding-bottom: 7px;
+  border-bottom: 1px solid currentColor;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* On the category list, show headings only. */
+body:not(.gallery-view-open) .gallery-section > .gallery-grid,
+body:not(.gallery-view-open) .gallery-section > .store-project {
+  display: none;
+}
+
+/* Make the headings read like an editorial index. */
+body:not(.gallery-view-open) .gallery-section {
+  padding-top: 0;
+}
+
+body:not(.gallery-view-open) .gallery-heading {
+  margin-bottom: 0;
+  padding: 35px 0;
+}
+
+/* In the selected gallery view, keep the title above the images. */
+.gallery-view-open .gallery-section {
+  padding-top: 0;
+}
+
+.gallery-view-open .gallery-heading {
+  margin-bottom: 35px;
+}
+
+@media (max-width: 700px) {
+  body:not(.gallery-view-open) .gallery-heading {
+    padding: 28px 0;
+  }
+}
+
+/* The previous and next images overlap during the slide */
+.category-preview img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.category-preview .preview-old-image {
+  z-index: 1;
+  animation: preview-slide-out 0.7s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.category-preview img.slide-in {
+  z-index: 2;
+  animation: preview-slide-in 0.7s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+@keyframes preview-slide-in {
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes preview-slide-out {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-preview img.slide-in,
+  .category-preview .preview-old-image {
+    animation: none;
+  }
+}
+
+/* Rounded floating preview */
+.category-preview {
+  border-radius: 14px;
+}
+
+/* Make the whole category heading row clickable in the list view */
+body:not(.gallery-view-open) .gallery-heading {
+  position: relative;
+}
+
+body:not(.gallery-view-open) .category-title-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+/* Keep the keyboard focus indicator visible */
+body:not(.gallery-view-open) .category-title-link:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 6px;
+}
+
+/* Gently fade the preview window in and out */
+.category-preview {
+  transition:
+    opacity 0.8s ease,
+    visibility 0s linear 0.8s;
+}
+
+.category-preview.is-visible {
+  transition:
+    opacity 0.8s ease,
+    visibility 0s linear 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .category-preview,
+  .category-preview.is-visible {
+    transition: none;
+  }
+}
+
+/* =========================================
+   HOME PAGE — SCROLLING VIDEO SHOWREEL
+========================================= */
+
+/* Keep the shared navigation legible over the videos. */
+.home-page .site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  color: #fff;
+  background: rgba(23, 23, 21, 0.72);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+  backdrop-filter: blur(12px);
+}
+
+.home-page .header-cta {
+  border-color: rgba(255, 255, 255, 0.65);
+}
+
+.home-page .header-cta:hover {
+  background: #fff;
+  color: #171715;
+  border-color: #fff;
+}
+
+.home-page .menu-toggle {
+  color: inherit;
+}
+
+/* The section supplies enough scrolling distance for the animation. */
+.home-showreel {
+  position: relative;
+  height: 300vh;
+  height: 300svh;
+}
+
+.home-showreel-stage {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  height: 100svh;
+  overflow: hidden;
+  background: var(--paper);
+  isolation: isolate;
+}
+
+.home-video-frame {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: min(26vw, 460px);
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  background: #333;
+
+  /*
+    JavaScript updates these values while scrolling.
+    The fallback values show the initial layout without JavaScript.
+  */
+  transform: translate(
+    calc(-50% + var(--x, 0px)),
+    calc(-50% + var(--y, 0px))
+  ) scale(var(--scale, 1));
+  will-change: transform;
+}
+
+.home-video-frame video {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-video-1 { z-index: 1; --x: -31vw; --y: -26vh; }
+.home-video-2 { z-index: 2; --x:  30vw; --y: -24vh; }
+.home-video-3 { z-index: 3; --x: -38vw; --y:  10vh; }
+.home-video-4 { z-index: 4; --x:  38vw; --y:  10vh; }
+
+/* The bottom video remains in front throughout the sequence. */
+.home-video-5 { z-index: 5; --x: 0vw; --y: 34vh; }
+
+.home-showreel-title {
+  position: absolute;
+  z-index: 6;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  padding: 0 20px;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  mix-blend-mode: difference;
+  pointer-events: none;
+}
+
+.home-showreel-title h1 {
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3.2rem, 8vw, 9rem);
+  font-weight: 700;
+  line-height: 0.95;
+  letter-spacing: -0.075em;
+}
+
+.home-showreel-title p {
+  margin: 20px 0 0;
+  font-size: clamp(0.9rem, 1.4vw, 1.2rem);
+}
+
+.home-scroll-hint {
+  position: absolute;
+  z-index: 7;
+  left: 50%;
+  bottom: 24px;
+  margin: 0;
+  transform: translateX(-50%);
+  color: #fff;
+  mix-blend-mode: difference;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+@media (max-width: 850px) {
+  /* The mobile menu has a light background in the shared styles. */
+  .home-page .nav {
+    color: var(--ink);
+    background: var(--paper);
+  }
+
+  .home-video-frame {
+    width: 44vw;
+  }
+
+  .home-video-1 { --x: -25vw; --y: -27vh; }
+  .home-video-2 { --x:  25vw; --y: -22vh; }
+  .home-video-3 { --x: -28vw; --y:   9vh; }
+  .home-video-4 { --x:  28vw; --y:  10vh; }
+  .home-video-5 { --x:   0vw; --y:  30vh; }
+}
+
+/* Provide a static layout for visitors who prefer reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+  .home-showreel {
+    height: auto;
+  }
+
+  .home-showreel-stage {
+    position: relative;
+  }
+
+  .home-video-frame {
+    display: none;
+  }
+
+  .home-video-5 {
+    display: block;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    transform: none;
+  }
+
+  .home-scroll-hint {
+    display: none;
+  }
+}

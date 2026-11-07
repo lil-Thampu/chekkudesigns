@@ -33,7 +33,7 @@
   <script src="script.js" defer></script>
 </head>
 
-<body>
+<body class="home-page">
   <header class="site-header">
     <div class="header-inner">
       <a class="logo" href="index.html" aria-label="Chekku Designs home">
@@ -58,23 +58,110 @@
   </header>
 
   <main id="top">
-    <section class="hero wrap" aria-labelledby="hero-title">
-      <p class="eyebrow">Independent communication design studio</p>
+        <!-- Scroll-driven home introduction -->
+    <section class="home-showreel" aria-labelledby="home-title">
+      <div class="home-showreel-stage">
 
-      <h1 id="hero-title">
-        Good ideas.<br />
-        <em>Great</em> impact.
-      </h1>
+        <div class="home-video-frame home-video-1" aria-hidden="true">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="portfolio-media/ai-home-videos/1.mp4" type="video/mp4" />
+          </video>
+        </div>
 
-      <div class="hero-bottom">
-        <p class="hero-description">
-          We bring ideas to life through thoughtful strategy,
-          distinctive identities, and meaningful design.
-        </p>
+        <div class="home-video-frame home-video-2" aria-hidden="true">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="portfolio-media/ai-home-videos/2.mp4" type="video/mp4" />
+          </video>
+        </div>
 
-        <a class="round-link" href="work.html" aria-label="Explore our work">↓</a>
+        <div class="home-video-frame home-video-3" aria-hidden="true">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="portfolio-media/ai-home-videos/3.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <div class="home-video-frame home-video-4" aria-hidden="true">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="portfolio-media/ai-home-videos/4.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <!-- This bottom video comes to the front and fills the screen -->
+        <div class="home-video-frame home-video-5" aria-hidden="true">
+          <video autoplay muted loop playsinline preload="metadata">
+            <source src="portfolio-media/ai-home-videos/5.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <div class="home-showreel-title">
+          <h1 id="home-title">Chekku Designs</h1>
+          <p>Communication design studio</p>
+        </div>
+
+        <p class="home-scroll-hint" aria-hidden="true">Scroll to explore ↓</p>
+
       </div>
     </section>
+    <section class="work wrap" aria-labelledby="work-title">
+  <div class="section-heading">
+    <h2 id="work-title">Selected work</h2>
+    <p>Featured projects — view all ↗</p>
+  </div>
+
+  <div class="portfolio-grid">
+    <article class="portfolio-card">
+      <a href="work.html#store-design">
+        <div class="portfolio-visual visual-store">
+          <span class="visual-label">Retail</span>
+          <img src="portfolio-media/store-design/caratlane/1.jpg" alt="Caratlane store design" loading="lazy" />
+        </div>
+        <div class="portfolio-card-info">
+          <h3>Caratlane</h3>
+          <p>Store design</p>
+        </div>
+      </a>
+    </article>
+
+    <article class="portfolio-card">
+      <a href="work.html#ai-mood-shots">
+        <div class="portfolio-visual visual-mood">
+          <span class="visual-label">AI Lab</span>
+          <img src="portfolio-media/ai-mood-shots/1.jpg" alt="AI mood shot" loading="lazy" />
+        </div>
+        <div class="portfolio-card-info">
+          <h3>Mood Shots</h3>
+          <p>AI imagery</p>
+        </div>
+      </a>
+    </article>
+
+    <article class="portfolio-card">
+      <a href="work.html#event-design">
+        <div class="portfolio-visual visual-event">
+          <span class="visual-label">Experiences</span>
+          <img src="portfolio-media/event-design/1.jpg" alt="Event design" loading="lazy" />
+        </div>
+        <div class="portfolio-card-info">
+          <h3>Event Design</h3>
+          <p>Spaces & experiences</p>
+        </div>
+      </a>
+    </article>
+
+    <article class="portfolio-card portfolio-card-wide">
+      <a href="work.html#art-direction">
+        <div class="portfolio-visual visual-art">
+          <span class="visual-label">Creative</span>
+          <img src="portfolio-media/art-direction/1.jpg" alt="Art direction" loading="lazy" />
+        </div>
+        <div class="portfolio-card-info">
+          <h3>Art Direction</h3>
+          <p>Visual concepts</p>
+        </div>
+      </a>
+    </article>
+  </div>
+</section>
   </main>
 </body>
 </html>
