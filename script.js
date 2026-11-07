@@ -26,6 +26,41 @@ if (year) {
   year.textContent = new Date().getFullYear();
 }
 
+// Footer on every page (pages that already have their own footer are skipped)
+if (!document.querySelector(".home-footer, .footer")) {
+  const siteFooter = document.createElement("footer");
+  siteFooter.className = "home-footer";
+
+  siteFooter.innerHTML = `
+    <div class="wrap">
+      <p class="eyebrow reveal-fade">Have a project in mind?</p>
+
+      <h2 class="home-footer-title reveal-lines">
+        <span class="line"><span>Let's make</span></span>
+        <span class="line"><span>something matter.</span></span>
+      </h2>
+
+      <a class="home-footer-cta reveal-fade" href="contact.html">Start a conversation ↗</a>
+
+      <div class="home-footer-bottom">
+        <p>© <span class="footer-year"></span> Swoosh Designs</p>
+
+        <nav class="home-footer-links" aria-label="Footer navigation">
+          <a href="work.html">Work</a>
+          <a href="studio.html">Studio</a>
+          <a href="process.html">Process</a>
+          <a href="contact.html">Contact</a>
+        </nav>
+      </div>
+    </div>
+  `;
+
+  document.body.appendChild(siteFooter);
+
+  siteFooter.querySelector(".footer-year").textContent =
+    new Date().getFullYear();
+}
+
 // Custom inverted cursor
 const supportsCustomCursor = window.matchMedia(
   "(hover: hover) and (pointer: fine)"
@@ -75,7 +110,7 @@ pageRoot.addEventListener("animationend", (event) => {
 });
 
 document.querySelectorAll(
-  ".nav a, .header-cta, .logo, .portfolio-card a"
+  ".nav a, .header-cta, .logo, .portfolio-card a, .view-all, .home-footer a"
 ).forEach((link) => {
   link.addEventListener("click", (event) => {
     // Keep normal browser behavior for new tabs, keyboard shortcuts,
@@ -516,4 +551,28 @@ if (heroTitle && !reducedMotion.matches) {
 
   window.addEventListener("scroll", updateHeroTitle, { passive: true });
   updateHeroTitle();
+}
+
+// Flip the page to dark while the services section is under the header
+const servicesSection = document.querySelector(".home-services");
+const servicesLine = document.querySelector(".home-services .section-heading");
+const servicesList = document.querySelector(".home-services .service-list");
+const mainHeader = document.querySelector(".site-header");
+
+if (
+  servicesSection && servicesLine && servicesList && mainHeader &&
+  document.body.classList.contains("home-page")
+) {
+    const checkTheme = () => {
+    const headerBottom = mainHeader.getBoundingClientRect().bottom;
+    const lineTop = servicesLine.getBoundingClientRect().top;
+
+    // Dark once the line has reached the header, and stays dark
+    // until you scroll back up and the line drops below it again
+    document.body.classList.toggle("is-dark", lineTop <= headerBottom);
+  };
+
+  window.addEventListener("scroll", checkTheme, { passive: true });
+  window.addEventListener("resize", checkTheme);
+  checkTheme();
 }

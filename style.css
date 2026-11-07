@@ -2276,3 +2276,225 @@ body:not(.gallery-view-open) .category-title-link:focus-visible {
 .reveal-lines .line {
   padding-bottom: 0.14em;
 }
+
+/* "View all" link in the Selected work heading */
+.section-heading .view-all {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s ease;
+}
+
+.section-heading .view-all:hover,
+.section-heading .view-all:focus-visible {
+  border-bottom-color: currentColor;
+}
+
+/* Home footer */
+.home-footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 120px 0 36px;
+}
+
+.home-footer-title {
+  margin: 40px 0 50px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3rem, 9vw, 9.5rem);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.07em;
+}
+
+.home-footer-cta {
+  display: inline-block;
+  padding-bottom: 8px;
+  border-bottom: 1px solid currentColor;
+  font-size: clamp(1.1rem, 2vw, 1.6rem);
+  transition: color 0.2s ease;
+}
+
+.home-footer-cta:hover {
+  color: var(--accent);
+}
+
+.home-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 25px;
+  margin-top: 120px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.25);
+  font-size: 0.8rem;
+}
+
+.home-footer-bottom p {
+  margin: 0;
+}
+
+.home-footer-links {
+  display: flex;
+  gap: 24px;
+}
+
+.home-footer-links a {
+  transition: color 0.2s ease;
+}
+
+.home-footer-links a:hover {
+  color: var(--accent);
+}
+
+@media (max-width: 700px) {
+  .home-footer {
+    padding: 80px 0 30px;
+  }
+
+  .home-footer-bottom {
+    margin-top: 80px;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+/* Colour flip: cream to black and back */
+body.home-page {
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+body.home-page.is-dark {
+  background: var(--ink);
+  color: var(--paper);
+}
+
+/* Things in the services section that had fixed dark colours */
+.home-services .section-heading,
+.service-row {
+  transition: border-color 0.5s ease;
+}
+
+.home-services .service-row p {
+  transition: color 0.5s ease;
+}
+
+.is-dark .home-services .section-heading {
+  border-top-color: var(--paper);
+}
+
+.is-dark .service-row {
+  border-color: rgba(255, 255, 255, 0.22);
+}
+
+.is-dark .service-row p {
+  color: #b9b9b2;
+}
+
+/* The header goes black while the page is dark */
+.home-page.is-dark .site-header.is-scrolled {
+  background: var(--ink);
+  color: var(--paper);
+  border-bottom-color: rgba(255, 255, 255, 0.2);
+}
+
+.home-page.is-dark .site-header.is-scrolled .header-cta {
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+.home-page.is-dark .site-header.is-scrolled .header-cta:hover {
+  background: var(--paper);
+  color: var(--ink);
+  border-color: var(--paper);
+}
+
+/* Phone menu panel matches the dark page */
+@media (max-width: 850px) {
+  .home-page.is-dark .nav {
+    background: var(--ink);
+    color: var(--paper);
+    border-bottom-color: rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* Selected work while the page is dark */
+.work .section-heading {
+  transition: border-color 0.5s ease;
+}
+
+.portfolio-card-info p {
+  transition: color 0.5s ease;
+}
+
+.is-dark .work .section-heading {
+  border-top-color: var(--paper);
+}
+
+.is-dark .portfolio-card-info p {
+  color: #b9b9b2;
+}
+
+/* Process steps: number on the left, title + text on the right */
+.process-grid {
+  grid-template-columns: 1fr;
+  gap: 0;
+}
+
+.process-grid article {
+  display: grid;
+  grid-template-columns: 76px minmax(0, 1fr);
+  column-gap: 20px;
+  row-gap: 16px;
+  align-items: start;
+  padding: 36px 0;
+  border-top: 1px solid var(--line);
+}
+
+.process-grid article:last-child {
+  border-bottom: 1px solid var(--line);
+}
+
+.process-grid span {
+  grid-column: 1;
+  grid-row: 1 / span 2;
+  color: var(--ink);
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(1.4rem, 3vw, 2.4rem);
+  font-weight: 500;
+  line-height: 1.1;
+  letter-spacing: -0.04em;
+}
+
+.process-grid h3 {
+  grid-column: 2;
+  margin: 0;
+  font-size: clamp(1.7rem, 4vw, 3rem);
+  line-height: 1.05;
+  letter-spacing: -0.05em;
+}
+
+.process-grid p {
+  grid-column: 2;
+  max-width: 520px;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+/* On wider screens: number | title | description in one row */
+@media (min-width: 851px) {
+  .process-grid article {
+    grid-template-columns: 120px minmax(0, 1fr) minmax(0, 1.2fr);
+    column-gap: 40px;
+    align-items: baseline;
+  }
+
+  .process-grid span {
+    grid-row: 1;
+  }
+
+  .process-grid p {
+    grid-column: 3;
+    grid-row: 1;
+  }
+}
