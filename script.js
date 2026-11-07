@@ -211,6 +211,7 @@ if (showreel) {
   const scrollHint = showreel.querySelector(".home-scroll-hint");
 
   let showreelFrameRequested = false;
+  let smoothProgress = 0;
   let showreelVisible = true;
 
   const desktopPositions = [
@@ -265,13 +266,57 @@ if (showreel) {
 
     if (scrollDistance <= 0) return;
 
-    const progress = clamp(-rect.top / scrollDistance, 0, 1);
+    const targetProgress = clamp(-rect.top / scrollDistance, 0, 1);
+
+    // Move a fraction of the remaining distance each frame (the "delay")
+    smoothProgress += (targetProgress - smoothProgress) * 0.04;
+
+    if (Math.abs(targetProgress - smoothProgress) < 0.0005) {
+      smoothProgress = targetProgress;
+    } else {
+      requestShowreelUpdate(); // keep animating until it catches up
+    }
+
+const progress = smoothProgress;
+
+        // On mobile, start with video 5 centered and expand it to fill the screen.
+    if (window.innerWidth <= 850) {
+      const frontFrame = frames[4];
+      const frontWidth = frontFrame.offsetWidth;
+      const frontHeight = frontFrame.offsetHeight;
+
+      if (!frontWidth || !frontHeight) return;
+
+      const fullScreenScale = Math.max(
+        width / frontWidth,
+        height / frontHeight
+      );
+
+      const expand = ease(clamp(progress / 0.8, 0, 1));
+
+      frontFrame.style.setProperty("--x", "0px");
+      frontFrame.style.setProperty("--y", "0px");
+      frontFrame.style.setProperty(
+        "--scale",
+        1 + (fullScreenScale - 1) * expand
+      );
+
+      if (scrollHint) {
+        scrollHint.style.opacity = String(1 - clamp(progress * 5, 0, 1));
+      }
+
+      return;
+    }
 
     // First phase: scattered frames move into a central stack.
-    const gather = ease(clamp(progress / 0.6, 0, 1));
+        // First phase: scattered frames move into a central stack.
+    const gather = ease(clamp(progress / 0.55, 0, 1));
 
     // Second phase: the front video expands to fill the viewport.
-    const expand = ease(clamp((progress - 0.6) / 0.4, 0, 1));
+    const expand = ease(clamp((progress - 0.55) / 0.3, 0, 1));
+
+    // Third phase: the full-screen video settles into a smaller inset card.
+    const settle = ease(clamp((progress - 0.85) / 0.15, 0, 1));
 
     const positions = window.innerWidth <= 850
       ? mobilePositions
@@ -294,9 +339,13 @@ if (showreel) {
       const x = startX * width * (1 - gather) + stackX * gather;
       const y = startY * height * (1 - gather) + stackY * gather;
 
-      const scale = index === 4
-        ? 1 + (fullScreenScale - 1) * expand
-        : 1;
+      const insetScale = fullScreenScale * (1 - 0.18 * settle);
+
+    const scale = index === 4
+      ? 1 + (insetScale - 1) * expand
+      : 1;
+
+    frontFrame.classList.toggle("is-settling", settle > 0.05);
 
       frame.style.setProperty("--x", `${x}px`);
       frame.style.setProperty("--y", `${y}px`);
@@ -315,12 +364,15 @@ if (showreel) {
     requestAnimationFrame(drawShowreel);
   }
 
-  function updateVideoPlayback() {
-    videos.forEach((video) => {
-      if (reducedMotion.matches || !showreelVisible) {
+    function updateVideoPlayback() {
+    const isMobile = window.innerWidth <= 850;
+
+    videos.forEach((video, index) => {
+      const unusedOnMobile = isMobile && index !== 4;
+
+      if (reducedMotion.matches || !showreelVisible || unusedOnMobile) {
         video.pause();
       } else {
-        // Autoplay can be blocked by browser or device settings.
         video.play().catch(() => {});
       }
     });
@@ -329,7 +381,7 @@ if (showreel) {
   }
 
   window.addEventListener("scroll", requestShowreelUpdate, { passive: true });
-  window.addEventListener("resize", requestShowreelUpdate);
+    window.addEventListener("resize", updateVideoPlayback);
 
   if ("IntersectionObserver" in window) {
     const visibilityObserver = new IntersectionObserver((entries) => {
@@ -342,4 +394,40 @@ if (showreel) {
 
   reducedMotion.addEventListener("change", updateVideoPlayback);
   updateVideoPlayback();
+}
+
+// Smooth, inertial scrolling
+if (window.Lenis && !reducedMotion.matches) {
+  const lenis = new Lenis({
+    lerp: 0.05 // smaller = more glide/latency, larger = snappier
+  });
+
+  function lenisFrame(time) {
+    lenis.raf(time);
+    requestAnimationFrame(lenisFrame);
+  }
+
+  requestAnimationFrame(lenisFrame);
+}
+
+// Reveal text and cards as they enter the screen (replays when scrolling back)
+const revealItems = document.querySelectorAll(
+  ".reveal-lines, .reveal-fade, .portfolio-card"
+);
+
+// Give cards a staggered delay based on their position
+document.querySelectorAll(".portfolio-card").forEach((card, i) => {
+  card.style.setProperty("--i", i);
+});
+
+if ("IntersectionObserver" in window && !reducedMotion.matches) {
+  const textObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      entry.target.classList.toggle("in-view", entry.isIntersecting);
+    });
+  }, { threshold: 0.2 });
+
+  revealItems.forEach((item) => textObserver.observe(item));
+} else {
+  revealItems.forEach((item) => item.classList.add("in-view"));
 }

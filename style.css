@@ -10,9 +10,9 @@
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+html.lenis, html.lenis body { height: auto; }
+.lenis.lenis-smooth { scroll-behavior: auto !important; }
+.lenis.lenis-stopped { overflow: hidden; }
 
 body {
   margin: 0;
@@ -1917,5 +1917,138 @@ body:not(.gallery-view-open) .category-title-link:focus-visible {
 
   .home-scroll-hint {
     display: none;
+  }
+}
+
+/* =========================================
+   HOME SHOWREEL — MOBILE
+========================================= */
+
+@media (max-width: 850px) {
+  .home-showreel {
+    /* Shorter scroll distance for the simpler mobile animation */
+    height: 200vh;
+    height: 200svh;
+  }
+
+  /* Only show the front video on mobile */
+  .home-video-1,
+  .home-video-2,
+  .home-video-3,
+  .home-video-4 {
+    display: none;
+  }
+
+  .home-video-5 {
+    width: min(68vw, 420px);
+    aspect-ratio: 3 / 4;
+    --x: 0px;
+    --y: 0px;
+  }
+
+  .home-showreel-title h1 {
+    /* Keep the whole name readable rather than cutting it off */
+    font-size: clamp(2.6rem, 10vw, 5rem);
+    line-height: 0.95;
+  }
+
+  .home-showreel-title p {
+    margin-top: 14px;
+    font-size: clamp(0.85rem, 3.5vw, 1.1rem);
+  }
+
+  .home-scroll-hint {
+    bottom: 30px;
+  }
+}
+
+/* Keep the reduced-motion version full-screen on mobile too. */
+@media (max-width: 850px) and (prefers-reduced-motion: reduce) {
+  .home-showreel {
+    height: auto;
+  }
+
+  .home-video-5 {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    aspect-ratio: auto;
+    transform: none;
+  }
+}
+/* Headline revealed as the showreel video shrinks */
+.home-headline {
+  padding: 110px 0 80px;
+}
+
+.home-headline h2 {
+  max-width: 1600px;
+  margin: 0;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(3.6rem, 10vw, 11rem);
+  
+  line-height: 0.95;
+  letter-spacing: -0.06em;
+}
+
+.home-headline h2 em {
+  font-style: normal;
+  color: var(--muted);
+}
+
+/* Let the front video round its corners and inset as it settles */
+.home-video-frame.is-settling {
+  border-radius: 28px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .home-video-frame.is-settling {
+    border-radius: 0;
+  }
+}
+
+/* Lines slide up out of a mask */
+.reveal-lines .line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.08em;
+}
+
+.reveal-lines .line > span {
+  display: block;
+  transform: translateY(-110%);
+  transition: transform 2.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-lines .line:nth-child(1) > span { transition-delay: 0.15s; }
+.reveal-lines .line:nth-child(2) > span { transition-delay: 0s; }
+
+.reveal-lines.in-view .line > span { transform: translateY(0); }
+
+.line-indent { padding-left: clamp(2rem, 12vw, 14rem); }
+
+/* Fade-up for paragraphs and cards, staggered with --i */
+.reveal-fade,
+.portfolio-card {
+  opacity: 0;
+  transform: translateY(30px);
+  transition:
+    opacity 1s ease calc(var(--i, 0) * 0.12s),
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1) calc(var(--i, 0) * 0.12s);
+}
+
+.reveal-fade.in-view,
+.portfolio-card.in-view {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal-lines .line > span,
+  .reveal-fade,
+  .portfolio-card {
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

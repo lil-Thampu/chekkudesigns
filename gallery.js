@@ -85,7 +85,7 @@ collections.forEach((collection) => {
     figure.className = "gallery-item";
 
     const image = document.createElement("img");
-    image.alt = `${collection.label} ${number} by Chekku Designs`;
+    image.alt = `${collection.label} ${number} by Swoosh Designs`;
     image.loading = "lazy";
 
     let formatIndex = 0;
