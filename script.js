@@ -410,24 +410,110 @@ if (window.Lenis && !reducedMotion.matches) {
   requestAnimationFrame(lenisFrame);
 }
 
-// Reveal text and cards as they enter the screen (replays when scrolling back)
-const revealItems = document.querySelectorAll(
-  ".reveal-lines, .reveal-fade, .portfolio-card"
-);
+// ==========================================
+// Reveal text and cards on every page
+// ==========================================
 
-// Give cards a staggered delay based on their position
+// Things that already animate themselves, or should be left alone.
+const skipReveal = ".home-showreel, .site-header, .gallery-item, .category-preview";
+const alreadyRevealing = ".reveal-lines, .reveal-fade, .portfolio-card";
+
+// 1. Big page titles slide in from a mask (all pages except the home hero)
+document.querySelectorAll("main h1").forEach((heading) => {
+  if (heading.closest(skipReveal) || heading.matches(alreadyRevealing)) return;
+
+  const line = document.createElement("span");
+  const inner = document.createElement("span");
+  line.className = "line";
+
+  while (heading.firstChild) inner.appendChild(heading.firstChild);
+
+  line.appendChild(inner);
+  heading.appendChild(line);
+  heading.classList.add("reveal-lines");
+});
+
+// 2. Everything else fades up, staggered among its neighbours
+const fadeSelector = [
+  "main .eyebrow",
+  "main .section-heading",
+  "main h2",
+  "main h3",
+  "main p",
+  "main li",
+  "main article",
+  ".gallery-heading",
+  ".store-project h3",
+  ".gallery-contact a",
+  ".email-link",
+  ".footer"
+].join(", ");
+
+const staggerCount = new Map();
+
+document.querySelectorAll(fadeSelector).forEach((el) => {
+  if (el.closest(skipReveal) || el.matches(alreadyRevealing)) return;
+
+  // Skip anything inside something that is already animating
+  if (el.parentElement && el.parentElement.closest(
+    `${alreadyRevealing}, .gallery-item`
+  )) return;
+
+  const parent = el.parentElement;
+  const count = staggerCount.get(parent) || 0;
+  staggerCount.set(parent, count + 1);
+
+  el.style.setProperty("--i", String(Math.min(count, 5)));
+  el.classList.add("reveal-fade");
+});
+
+// Give the home cards a staggered delay as before
 document.querySelectorAll(".portfolio-card").forEach((card, i) => {
   card.style.setProperty("--i", i);
 });
+
+const revealItems = document.querySelectorAll(
+  ".reveal-lines, .reveal-fade, .portfolio-card"
+);
 
 if ("IntersectionObserver" in window && !reducedMotion.matches) {
   const textObserver = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       entry.target.classList.toggle("in-view", entry.isIntersecting);
     });
-  }, { threshold: 0.2 });
+  }, { threshold: 0.15 });
 
   revealItems.forEach((item) => textObserver.observe(item));
 } else {
   revealItems.forEach((item) => item.classList.add("in-view"));
+}
+// Home header: add "is-scrolled" once the page moves
+const homeHeader = document.querySelector(".home-page .site-header");
+
+if (homeHeader) {
+  const updateHeader = () => {
+    homeHeader.classList.toggle("is-scrolled", window.scrollY > 40);
+  };
+
+  window.addEventListener("scroll", updateHeader, { passive: true });
+  updateHeader();
+}
+
+// Shrink the hero title as the page scrolls
+const heroTitle = document.querySelector(".home-showreel-title");
+
+if (heroTitle && !reducedMotion.matches) {
+  const updateHeroTitle = () => {
+    // 0 at the top, 1 after scrolling 70% of the screen height
+    const progress = Math.min(
+      Math.max(window.scrollY / (window.innerHeight * 0.7), 0),
+      1
+    );
+
+    heroTitle.style.setProperty("--title-scale", String(1 - progress * 0.6));
+    heroTitle.style.setProperty("--title-fade", String(1 - progress));
+  };
+
+  window.addEventListener("scroll", updateHeroTitle, { passive: true });
+  updateHeroTitle();
 }
