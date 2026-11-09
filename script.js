@@ -27,38 +27,75 @@ if (year) {
 }
 
 // Footer on every page (pages that already have their own footer are skipped)
-if (!document.querySelector(".home-footer, .footer")) {
+if (!document.querySelector(".site-footer, .footer")) {
   const siteFooter = document.createElement("footer");
-  siteFooter.className = "home-footer";
+  siteFooter.className = "site-footer";
 
   siteFooter.innerHTML = `
     <div class="wrap">
-      <p class="eyebrow reveal-fade">Have a project in mind?</p>
+      <div class="footer-top">
+        <h2 class="footer-title reveal-lines">
+          <span class="line"><span>Have a brief?</span></span>
+          <span class="line"><span>We reply within one working day.</span></span>
+        </h2>
 
-      <h2 class="home-footer-title reveal-lines">
-        <span class="line"><span>Let's make</span></span>
-        <span class="line"><span>something matter.</span></span>
-      </h2>
+        <div class="footer-cta-block reveal-fade">
+          <a class="footer-pill" href="contact.html">Tell us about the project →</a>
+          <a class="footer-email" href="mailto:getswooshd@gmail.com">get.swooshd@gmail.com</a>
+        </div>
+      </div>
 
-      <a class="home-footer-cta reveal-fade" href="contact.html">Start a conversation ↗</a>
+      <div class="footer-columns">
+        <div class="reveal-fade" style="--i: 0">
+          <p class="footer-label">Explore</p>
+          <ul class="footer-list">
+            <li><a href="work.html">Work</a></li>
+            <li><a href="studio.html">Studio</a></li>
+            <li><a href="process.html">Process</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
 
-      <div class="home-footer-bottom">
+        <div class="reveal-fade" style="--i: 1">
+          <p class="footer-label">Talk to us</p>
+          <ul class="footer-list">
+            
+            <li><a href="mailto:getswooshd@gmail.com">get.swooshd@gmail.com</a></li>
+            <li class="footer-muted">Palakkad · India</li>
+          </ul>
+        </div>
+
+        <div class="reveal-fade" style="--i: 2">
+          <p class="footer-label">Follow</p>
+          <ul class="footer-list">
+            <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
+            <li><a href="#" target="_blank" rel="noopener">X</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
         <p>© <span class="footer-year"></span> Swoosh Designs</p>
-
-        <nav class="home-footer-links" aria-label="Footer navigation">
-          <a href="work.html">Work</a>
-          <a href="studio.html">Studio</a>
-          <a href="process.html">Process</a>
-          <a href="contact.html">Contact</a>
-        </nav>
+        <button class="footer-top-btn" type="button">Back to top ↑</button>
       </div>
     </div>
+
+    <p class="footer-wordmark reveal-fade" aria-hidden="true">Swoosh Designs</p>
   `;
 
   document.body.appendChild(siteFooter);
 
   siteFooter.querySelector(".footer-year").textContent =
     new Date().getFullYear();
+
+  siteFooter.querySelector(".footer-top-btn").addEventListener("click", () => {
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0);
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  });
 }
 
 // Custom inverted cursor
@@ -110,7 +147,7 @@ pageRoot.addEventListener("animationend", (event) => {
 });
 
 document.querySelectorAll(
-  ".nav a, .header-cta, .logo, .portfolio-card a, .view-all, .home-footer a"
+  ".nav a, .header-cta, .logo, .portfolio-card a, .view-all, .site-footer a"
 ).forEach((link) => {
   link.addEventListener("click", (event) => {
     // Keep normal browser behavior for new tabs, keyboard shortcuts,
@@ -436,6 +473,7 @@ if (window.Lenis && !reducedMotion.matches) {
   const lenis = new Lenis({
     lerp: 0.05 // smaller = more glide/latency, larger = snappier
   });
+   window.__lenis = lenis;
 
   function lenisFrame(time) {
     lenis.raf(time);

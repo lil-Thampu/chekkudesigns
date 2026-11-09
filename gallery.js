@@ -531,3 +531,48 @@ if (canHover.matches) {
   });
 }
 
+// ==========================================
+// AI videos: autoplay (muted) while on screen
+// ==========================================
+
+const autoVideos = document.querySelectorAll(".gallery-item video");
+
+if (
+  autoVideos.length &&
+  "IntersectionObserver" in window &&
+  !reducedMotion.matches
+) {
+  const videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(({ target: video, isIntersecting }) => {
+      if (isIntersecting) {
+        // Don't restart a video the visitor paused on purpose
+        if (video.dataset.manualPause !== "true") {
+          video.play().catch(() => {});
+        }
+      } else if (!video.paused) {
+        video.dataset.autoPause = "true";
+        video.pause();
+      }
+    });
+  }, { threshold: 0.5 });
+
+  autoVideos.forEach((video) => {
+    video.muted = true;   // browsers only autoplay muted video
+    video.loop = true;
+    video.playsInline = true;
+
+    video.addEventListener("pause", () => {
+      if (video.dataset.autoPause === "true") {
+        video.dataset.autoPause = "false";
+        return;
+      }
+      if (!video.ended) video.dataset.manualPause = "true";
+    });
+
+    video.addEventListener("play", () => {
+      video.dataset.manualPause = "false";
+    });
+
+    videoObserver.observe(video);
+  });
+}

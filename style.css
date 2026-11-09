@@ -2498,3 +2498,220 @@ body.home-page.is-dark {
     grid-row: 1;
   }
 }
+
+/* Footer */
+.site-footer {
+  background: var(--ink);
+  color: var(--paper);
+  padding-top: 110px;
+  overflow: hidden;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 50px;
+}
+
+.footer-title {
+  margin: 0;
+  max-width: 900px;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: clamp(2.6rem, 6.2vw, 6.2rem);
+  font-weight: 500;
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+}
+
+.footer-cta-block {
+  flex: 0 0 min(100%, 520px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+.footer-pill {
+  display: block;
+  width: 100%;
+  padding: 22px 30px;
+  border-radius: 100px;
+  background: #fff;
+  color: var(--ink);
+  text-align: center;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  transition: background 0.25s ease;
+}
+
+.footer-pill:hover {
+  background: var(--accent);
+}
+
+.footer-email {
+  color: #b9b9b2;
+  transition: color 0.2s ease;
+}
+
+.footer-email:hover,
+.footer-list a:hover,
+.footer-top-btn:hover {
+  color: var(--accent);
+}
+
+.footer-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 40px;
+  margin-top: 120px;
+}
+
+.footer-label {
+  margin: 0 0 22px;
+  color: #8a8a83;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.footer-list {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 1.15rem;
+}
+
+.footer-list a {
+  transition: color 0.2s ease;
+}
+
+.footer-muted {
+  color: #8a8a83;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-top: 90px;
+  padding: 24px 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.footer-bottom p {
+  margin: 0;
+}
+
+.footer-top-btn {
+  padding: 0;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+/* Giant wordmark, cropped at the bottom edge */
+.footer-wordmark {
+  margin: 0 0 -0.2em;
+  padding: 0 2vw;
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13.4vw;
+  font-weight: 700;
+  line-height: 0.85;
+  letter-spacing: -0.06em;
+  text-align: center;
+  white-space: nowrap;
+  color: rgba(243, 241, 234, 0.12);
+  transition:
+    color 1.6s ease,
+    opacity 1s ease,
+    transform 1s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.footer-wordmark.in-view {
+  color: rgba(243, 241, 234, 0.85);
+}
+
+@media (max-width: 850px) {
+  .site-footer {
+    padding-top: 80px;
+  }
+
+  .footer-top {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 40px;
+  }
+
+  .footer-cta-block {
+    flex-basis: auto;
+  }
+
+  .footer-columns {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    margin-top: 80px;
+  }
+
+  .footer-bottom {
+    margin-top: 60px;
+  }
+}
+
+@media (max-width: 560px) {
+  .footer-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+.service-row h3 {
+  font-size: clamp(1.5rem, 2.4vw, 2.4rem);
+}
+
+/* More space between items, smaller green offset */
+.gallery-grid {
+  column-gap: 40px;
+}
+
+.gallery-item {
+  margin-bottom: 40px;
+}
+
+.gallery-item.scroll-hover::before {
+  transform: translate(6px, 6px);
+}
+
+.gallery-item.scroll-hover img,
+.gallery-item.scroll-hover video {
+  transform: translate(-4px, -4px);
+}
+/* AI videos only: make the green frame behave like the photos */
+.gallery-item:has(video) {
+  line-height: 0;                 /* no stray gap under the video */
+}
+
+.gallery-item:has(video) video {
+  display: block;
+  vertical-align: top;
+}
+
+/* an empty caption box was adding height, which showed as extra green */
+.gallery-item:has(video) figcaption:not(.overlay-caption):empty {
+  display: none;
+}
+
+.gallery-item:has(video) figcaption:not(.overlay-caption) {
+  display: none;
+}
