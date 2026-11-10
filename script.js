@@ -41,7 +41,8 @@ if (!document.querySelector(".site-footer, .footer")) {
 
         <div class="footer-cta-block reveal-fade">
           <a class="footer-pill" href="contact.html">Tell us about the project →</a>
-          <a class="footer-email" href="mailto:getswooshd@gmail.com">get.swooshd@gmail.com</a>
+          <a class="footer-email" href="mailto:getswooshd@gmail.com">getswooshd@gmail.com</a>
+          <a class="footer-phone" href="tel:+919495375748">+91 94953 75748</a>
         </div>
       </div>
 
@@ -60,7 +61,8 @@ if (!document.querySelector(".site-footer, .footer")) {
           <p class="footer-label">Talk to us</p>
           <ul class="footer-list">
             
-            <li><a href="mailto:getswooshd@gmail.com">get.swooshd@gmail.com</a></li>
+            <li><a href="mailto:getswooshd@gmail.com">getswooshd@gmail.com</a></li>
+            <li><a href="tel:+919495375748">+91 94953 75748</a></li>
             <li class="footer-muted">Palakkad · India</li>
           </ul>
         </div>
