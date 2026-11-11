@@ -35,21 +35,29 @@ if (!document.querySelector(".site-footer, .footer")) {
     <div class="wrap">
       <div class="footer-top">
         <h2 class="footer-title reveal-lines">
-          <span class="line"><span>Have a brief?</span></span>
-          <span class="line"><span>We reply within one working day.</span></span>
+          <span class="line"><span>Tell us your tale</span></span>
+          <span class="line"><span>We’ll design the story.</span></span>
         </h2>
 
         <div class="footer-cta-block reveal-fade">
           <a class="footer-pill" href="contact.html">Tell us about the project →</a>
-          <a class="footer-email" href="mailto:getswooshd@gmail.com">getswooshd@gmail.com</a>
-          <a class="footer-phone" href="tel:+919495375748">+91 94953 75748</a>
+          
         </div>
       </div>
+      
+      
 
       <div class="footer-columns">
+      <div class="footer-brand">
+  <p class="footer-brand-name">Swoosh 
+  </p><p class="footer-brand-name"> 
+  Designs</p>
+  <p class="footer-brand-tag">A communication design studio for stores, brands and stories.</p>
+</div>
         <div class="reveal-fade" style="--i: 0">
           <p class="footer-label">Explore</p>
           <ul class="footer-list">
+        
             <li><a href="work.html">Work</a></li>
             <li><a href="studio.html">Studio</a></li>
             <li><a href="process.html">Process</a></li>
@@ -68,22 +76,18 @@ if (!document.querySelector(".site-footer, .footer")) {
         </div>
 
         <div class="reveal-fade" style="--i: 2">
-          <p class="footer-label">Follow</p>
-          <ul class="footer-list">
-            <li><a href="#" target="_blank" rel="noopener">Instagram</a></li>
-            <li><a href="#" target="_blank" rel="noopener">LinkedIn</a></li>
-            <li><a href="#" target="_blank" rel="noopener">X</a></li>
-          </ul>
+          
+          
         </div>
       </div>
 
       <div class="footer-bottom">
-        <p>© <span class="footer-year"></span> Swoosh Designs</p>
+        <p> <span class="footer-year"></span> </p>
         <button class="footer-top-btn" type="button">Back to top ↑</button>
       </div>
     </div>
 
-    <p class="footer-wordmark reveal-fade" aria-hidden="true">Swoosh Designs</p>
+    
   `;
 
   document.body.appendChild(siteFooter);

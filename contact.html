@@ -33,7 +33,7 @@
   <script src="script.js" defer></script>
 </head>
 
-<body>
+<body class = "contact-page">
   <header class="site-header">
     <div class="header-inner">
       <a class="logo" href="index.html" aria-label="Swoosh Designs home">
@@ -51,30 +51,89 @@
         <a href="contact.html" aria-current="page">Contact</a>
       </nav>
 
-      <a class="header-cta" href="contact.html">
-        Let's discuss <span aria-hidden="true">→</span>
-      </a>
+      
     </div>
   </header>
 
-  <main id="top">
-    <section class="contact wrap" id="contact" aria-labelledby="contact-title">
-      <p class="eyebrow">Have a project in mind?</p>
-      <h1 id="contact-title">Let's make something matter.</h1>
+  <main>
+  <section class="contact-hero">
+    <p class="contact-kicker">Start a project</p>
+    <h1>Tell us your tale.<br>We'll design the story.</h1>
+    <p class="contact-intro">
+      A new store, a new brand or a campaign that needs a story. Send us a brief,
+      or call us directly. We reply within one working day.
+    </p>
+  </section>
 
-      <!-- Replace this address with your real contact email. -->
-      <a class="email-link" href="mailto:hello@example.com">
-        hello@example.com <span aria-hidden="true">↗</span>
-      </a>
+  <section class="contact-dark">
+    <div class="contact-dark-inner">
 
-      <footer class="footer">
-        <p>© <span id="year"></span> Swoosh Designs. All rights reserved.</p>
+      <div class="contact-details">
+        <p class="contact-label">Contact</p>
+        <a class="contact-value" href="tel:+919495375748">+91 94953 75748</a>
 
-        <div class="footer-links">
-          <a href="#top">Back to top ↑</a>
+        <p class="contact-label">Email</p>
+        <a class="contact-value" href="mailto:getswooshd@gmail.com">getswooshd@gmail.com</a>
+
+        <p class="contact-label">Studio</p>
+        <p class="contact-value">Palakkad · India</p>
+
+        <p class="contact-note">
+          We read every enquiry and come back with the right next step for your project.
+        </p>
+      </div>
+
+      <form class="contact-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+        <label>
+          <span>Name</span>
+          <input type="text" name="name" placeholder="Your name" required />
+        </label>
+
+        <label>
+          <span>Email</span>
+          <input type="email" name="email" placeholder="Email address" required />
+        </label>
+
+        <label>
+          <span>Company</span>
+          <input type="text" name="company" placeholder="Brand or company" />
+        </label>
+
+        <label>
+          <span>Project type</span>
+          <select name="project_type">
+            <option>Store Design &amp; Visual Merchandising</option>
+            <option>AI-Led Creative Production</option>
+            <option>Brand Strategy &amp; Identity</option>
+            <option>Digital &amp; Social Storytelling</option>
+            <option>Campaign Direction</option>
+            <option>Structural Packaging</option>
+            <option>Something else</option>
+          </select>
+        </label>
+
+        <label class="full">
+          <span>Phone</span>
+          <input type="tel" name="phone" placeholder="Mobile number" />
+        </label>
+
+        <label class="full">
+          <span>Project brief</span>
+          <textarea name="brief" rows="3"
+            placeholder="What are you trying to make or change? Include timing, scope or anything useful."></textarea>
+        </label>
+
+        <!-- spam trap: leave hidden -->
+        <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" class="honeypot" />
+
+        <div class="contact-form-foot full">
+          <p>Your brief goes straight to the studio.</p>
+          <button type="submit">Send the brief</button>
         </div>
-      </footer>
-    </section>
-  </main>
+      </form>
+
+    </div>
+  </section>
+</main>
 </body>
 </html>
