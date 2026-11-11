@@ -620,3 +620,38 @@ if (
   window.addEventListener("resize", checkTheme);
   checkTheme();
 }
+
+// Contact form -> Formspree
+const enquiryForm = document.getElementById("enquiry-form");
+
+if (enquiryForm) {
+  enquiryForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    const button = enquiryForm.querySelector('button[type="submit"]');
+    const note = enquiryForm.querySelector(".contact-form-foot p");
+
+    button.disabled = true;
+    button.textContent = "Sending…";
+
+    try {
+      const response = await fetch(enquiryForm.action, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(enquiryForm),
+      });
+
+      if (!response.ok) throw new Error("Request failed");
+
+      note.textContent =
+        "Your brief has been sent. We'll be in touch within one working day.";
+      button.textContent = "Brief sent ✓";
+      enquiryForm.reset();
+    } catch (error) {
+      note.textContent =
+        "Something went wrong. Please try again or email getswooshd@gmail.com.";
+      button.disabled = false;
+      button.textContent = "Send the brief";
+    }
+  });
+}
