@@ -655,3 +655,14 @@ if (enquiryForm) {
     }
   });
 }
+
+// Hide ".html" in the address bar (live site only)
+if (location.protocol.startsWith("http")) {
+  const cleanPath = location.pathname
+    .replace(/index\.html$/, "")
+    .replace(/\.html$/, "");
+
+  if (cleanPath !== location.pathname) {
+    history.replaceState(null, "", cleanPath + location.search + location.hash);
+  }
+}
