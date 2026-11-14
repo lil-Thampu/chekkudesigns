@@ -3059,3 +3059,23 @@ body:has(.contact-dark) .site-footer {
     border-bottom: 1px solid var(--line);
   }
 }
+:root {
+  --sand: #decdac;
+}
+
+/* Sand band: use on any section you want to stand out */
+.process-gets {
+  background: var(--sand);
+  border-top-color: rgba(23, 23, 21, 0.18);
+  border-bottom-color: rgba(23, 23, 21, 0.18);
+}
+
+.process-gets .section-intro,
+.process-gets .gets-grid p,
+.process-gets .gets-grid span {
+  color: #4a4a44;   /* darker grey so it stays readable on sand */
+}
+
+.process-gets .gets-grid article {
+  border-top-color: rgba(23, 23, 21, 0.25);
+}

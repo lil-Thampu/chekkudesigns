@@ -69,7 +69,7 @@ if (!document.querySelector(".site-footer, .footer")) {
           <p class="footer-label">Talk to us</p>
           <ul class="footer-list">
             
-            <li><a href="mailto:getswooshd@gmail.com">getswooshd@gmail.com</a></li>
+            <li><a href="mailto:connect@getswooshd.in">connect@getswooshd.in</a></li>
             <li><a href="tel:+919495375748">+91 94953 75748</a></li>
             <li class="footer-muted">Palakkad · India</li>
           </ul>
