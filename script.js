@@ -49,9 +49,7 @@ if (!document.querySelector(".site-footer, .footer")) {
 
       <div class="footer-columns">
       <div class="footer-brand">
-  <p class="footer-brand-name">Swoosh 
-  </p><p class="footer-brand-name"> 
-  Designs</p>
+  <img class="footer-brand-logo" src="portfolio-media/logo-light.webp" alt="Swoosh Designs" />
   <p class="footer-brand-tag">A communication design studio for stores, brands and stories.</p>
 </div>
         <div class="reveal-fade" style="--i: 0">

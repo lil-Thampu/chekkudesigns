@@ -3079,3 +3079,61 @@ body:has(.contact-dark) .site-footer {
 .process-gets .gets-grid article {
   border-top-color: rgba(23, 23, 21, 0.25);
 }
+/* Logo images */
+.logo img {
+  display: block;
+  height: 50px;
+  width: auto;
+}
+
+.logo .logo-light { display: none; }
+
+/* Dark header states: home page over the video, and when the home page flips black */
+.home-page .site-header:not(.is-scrolled) .logo-dark,
+.home-page.is-dark .site-header.is-scrolled .logo-dark {
+  display: none;
+}
+
+.home-page .site-header:not(.is-scrolled) .logo-light,
+.home-page.is-dark .site-header.is-scrolled .logo-light {
+  display: block;
+}
+
+/* Footer */
+.footer-brand-logo {
+  display: block;
+  width: clamp(110px, 12vw, 170px);
+  height: auto;
+}
+.footer-brand-logo {
+  margin-left: 40px;   /* increase to move it further right */
+}
+
+.footer-title {
+  font-size: clamp(3.2rem, 8vw, 8.5rem);
+  max-width: 1200px;
+  line-height: 0.95;
+}
+
+@media (min-width: 851px) {
+  .footer-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 50px;
+  }
+
+  .footer-cta-block {
+    flex: 0 0 auto;
+    width: min(100%, 520px);
+    align-items: flex-start;
+  }
+}
+
+.site-footer {
+  padding-top: 30px;   /* was 110px, so this moves everything up by 60px */
+}
+
+@media (max-width: 850px) {
+  .site-footer { padding-top: 40px; }
+}
+.footer-top { margin-top: -50px; }
